@@ -423,9 +423,16 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
+
+# Datos, info y credenciales
 *.csv
 *.json
-MANIFEST
+*.xlsx
+
+# Scripts Especificos
+andonFlex.py
+diesel.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

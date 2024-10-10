@@ -7,7 +7,8 @@ import concurrent.futures as ft
 from colorama import Fore, Style, init
 from datetime import datetime
 from Tenant import Qlik, Script
-
+from diesel import diesel
+from andonFlex import andonFlex
 
 init()
 ExceptionList: list[str] = list()
@@ -42,9 +43,9 @@ def run_report_and_upload(
     print(f'{Fore.BLUE + names_list[i] + Style.RESET_ALL} terminado | Faltan {Fore.YELLOW}{i}{Style.RESET_ALL} reportes por descargar {datetime.now()}')
 
 jsonFile = 'config.json'
+configuration = json.load(open(jsonFile, 'r'))
 
 for x in range(len(json.load(open(jsonFile, 'r'))['systems'])):
-    configuration = json.load(open(jsonFile, 'r'))
     os.system('cls' if os.name == 'nt' else 'clear')
     print(f'Iniciando sistema {configuration["systems"][x]}')
     seconds = int(configuration['seconds'])
@@ -87,5 +88,7 @@ for x in range(len(json.load(open(jsonFile, 'r'))['systems'])):
             for item in ExceptionList: f.write('%s\n' % item)
         print(ExceptionList)
     now = datetime.now()
-    del configuration
     time.sleep(10)
+
+andonFlex(nQlik, configuration['andonFlex'])
+diesel(configuration['diesel'])
